@@ -3,7 +3,7 @@ const vsprintf = require('./format')
 const debug = require('debug')('minecraft-protocol')
 const nbt = require('prismarine-nbt')
 const getValueSafely = (obj, key, def) => Object.hasOwn(obj, key) ? obj[key] : def
-const MAX_CHAT_DEPTH = 8
+const MAX_CHAT_DEPTH = 32
 const MAX_CHAT_LENGTH = 4096
 
 function loader (registryOrVersion) {
@@ -135,6 +135,9 @@ function loader (registryOrVersion) {
       } else if (typeof json.selector === 'string') {
         // Handle selector (e.g., @p, @a, @s)
         this.selector = json.selector
+      } else if (json.player && typeof json.player === 'object' && json.player.name) {
+        // Handle player selector component (e.g., {"player":{"name":"Steve"}})
+        this.player = json.player.name
       } else if (typeof json.keybind === 'string') {
         // Handle keybind (e.g., key.inventory)
         this.keybind = json.keybind
@@ -355,6 +358,9 @@ function loader (registryOrVersion) {
       } else if (this.selector !== undefined) {
         // Render selector as-is since we can't resolve it without server context
         message += this.selector
+      } else if (this.player !== undefined) {
+        // Render player selector name as-is
+        message += this.player
       } else if (this.keybind !== undefined) {
         // Render keybind as-is since we can't resolve it without client context
         message += this.keybind
@@ -435,6 +441,8 @@ function loader (registryOrVersion) {
         message += vsprintf(format, args)
       } else if (this.selector !== undefined) {
         message += this.selector
+      } else if (this.player !== undefined) {
+        message += this.player
       } else if (this.keybind !== undefined) {
         message += this.keybind
       } else if (this.score !== undefined && this.score.name && this.score.objective) {
@@ -504,6 +512,8 @@ function loader (registryOrVersion) {
         str += vsprintf(escapeHtml(format), params)
       } else if (this.selector) {
         str += escapeHtml(this.selector)
+      } else if (this.player) {
+        str += escapeHtml(this.player)
       } else if (this.keybind) {
         str += escapeHtml(this.keybind)
       } else if (this.score && this.score.name && this.score.objective) {
@@ -521,6 +531,7 @@ function loader (registryOrVersion) {
     }
 
     static fromNotch (msg) {
+      if (msg == null) return new ChatMessage('')
       if (registry.supportFeature('chatPacketsUseNbtComponents') && msg.type) {
         const json = processNbtMessage(msg)
         return new ChatMessage(json ? JSON.parse(json) : '')
