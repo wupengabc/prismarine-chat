@@ -1,6 +1,6 @@
 {
-  "name": "prismarine-chat",
-  "version": "1.13.0",
+  "name": "@wp2508/prismarine-chat",
+  "version": "1.13.1",
   "description": "Wrapper for a minecraft chat message",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PrismarineJS/prismarine-chat.git"
+    "url": "git+https://github.com/wupengabc/prismarine-chat.git"
   },
   "keywords": [
     "prismarine",
@@ -19,10 +19,13 @@
   ],
   "author": "Romain Beaumont",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/PrismarineJS/prismarine-chat/issues"
+  "publishConfig": {
+    "access": "public"
   },
-  "homepage": "https://github.com/PrismarineJS/prismarine-chat#readme",
+  "bugs": {
+    "url": "https://github.com/wupengabc/prismarine-chat/issues"
+  },
+  "homepage": "https://github.com/wupengabc/prismarine-chat#readme",
   "devDependencies": {
     "expect": "^30.1.2",
     "mocha": "^11.0.1",
