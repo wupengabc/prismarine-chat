@@ -227,6 +227,11 @@ describe('Chat parser edge cases', function () {
     expect(msg.toString()).toBe('🌫')
   })
 
+  it('should preserve supplementary glyphs across legacy formatting boundaries', () => {
+    const msg = new ChatMessage('§6🔱§b海王§e🔱')
+    expect(msg.toString()).toBe('🔱海王🔱')
+  })
+
   it('should handle spawnpoint angle float precision', () => {
     // Simulate NBT message with empty string key and float value
     const msg = new ChatMessage({ '': 0.10000000149011612 })

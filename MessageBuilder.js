@@ -227,7 +227,8 @@ function loader (registry) {
         const char = str.substring(i, i + 1)
         if (char !== colorSeparator) currString += char
         else {
-          const text = currString.split('').reverse()
+          // Reverse by Unicode code point, never by UTF-16 code unit.
+          const text = Array.from(currString).reverse()
           const color = supportedColors[text.shift()]
           const newObj = new MessageBuilder()
           if (color === 'obfuscated') {
@@ -252,7 +253,9 @@ function loader (registry) {
         }
       }
       if (currString !== '') {
-        const txt = currString.split('').reverse().join('')
+        // split('') reverses UTF-16 code units and turns supplementary-plane
+        // glyphs (emoji and resource-pack icons) into invalid lone surrogates.
+        const txt = Array.from(currString).reverse().join('')
         if (lastObj !== null) lastObj = new MessageBuilder().setText(txt).addExtra(lastObj)
         else lastObj = new MessageBuilder().setText(txt)
       }

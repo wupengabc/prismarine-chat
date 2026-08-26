@@ -1,6 +1,6 @@
 {
   "name": "@wp2508/prismarine-chat",
-  "version": "1.13.1",
+  "version": "1.13.2",
   "description": "Wrapper for a minecraft chat message",
   "main": "index.js",
   "scripts": {
