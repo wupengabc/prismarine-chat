@@ -1,5 +1,8 @@
 # prismarine-chat
-[![NPM version](https://img.shields.io/npm/v/prismarine-chat.svg)](http://npmjs.com/package/prismarine-chat)
+
+> **Fork (wupengabc):** adds **Minecraft 26.3 (protocol 777)** support. Published to npm as [`@wp2508/prismarine-chat`](https://www.npmjs.com/package/@wp2508/prismarine-chat) — install with `npm install @wp2508/prismarine-chat` and `require('@wp2508/prismarine-chat')`. Upstream: [PrismarineJS/prismarine-chat](https://github.com/PrismarineJS/prismarine-chat).
+
+[![NPM version](https://img.shields.io/npm/v/@wp2508/prismarine-chat.svg?color=success&label=npm%20package&logo=npm)](https://www.npmjs.com/package/@wp2508/prismarine-chat)
 [![Build Status](https://github.com/PrismarineJS/prismarine-chat/workflows/CI/badge.svg)](https://github.com/PrismarineJS/prismarine-chat/actions?query=workflow%3A%22CI%22)
 [![Discord](https://img.shields.io/badge/chat-on%20discord-brightgreen.svg)](https://discord.gg/GsEFRM8)
 [![Gitter](https://img.shields.io/badge/chat-on%20gitter-brightgreen.svg)](https://gitter.im/PrismarineJS/general)
@@ -13,7 +16,7 @@ A parser for a minecraft chat message
 
 ```js
 const registry = require('prismarine-registry')('1.16')
-const ChatMessage = require('prismarine-chat')(registry)
+const ChatMessage = require('@wp2508/prismarine-chat')(registry)
 
 const msg = new ChatMessage({"text":"Example chat mesasge"})
 console.log(msg.toString()) // Example chat message
